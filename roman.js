@@ -1,78 +1,22 @@
-// console.log("roman broman")
-// const number = 1000
-// const valueArray = []
-// const symbolArray = []
+const symbolArray = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+const valueArray = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+const array = [];
 
-// function romanNumeral(number) {
-
-// }
-const numerals = ["I", "X", "C", "M"];
-
-const numerals5 = ["V", "L", "D", "z"];
-
-function parseNum(input) {
-  const numbers = input.split("").reverse();
-  const num = recursion(numbers, 0);
-  return num.join("").reverse();
-}
-
-let out = ""
-
-function single(num) {
-  if( num > 5 ){
-    out += numerals5[index]
-    number = num - 5;
-  } else if ( num === 4 ){
-    out += numerals[index] + numerals5[index];
-    number = num - 4;
-  } else if ( num > 0 ){
-    out += numerals[index]
-    number = num - 1;
-  }
-  return single(number)
-}
-
-function recursion(numbers, index) {
-  const number = numbers[index]
-  if (number < 9) {
-    single(number);
-  } else {
-    out += numerals[index] + numerals[index + 1];
+function roman(number, counter) {
+  if (number > 4000) {
+    return "number too large";
+  } else if (counter < valueArray.length) {
+    if (number / valueArray[counter] >= 1) {
+      const amount = Math.floor(number / valueArray[counter])
+      const newNumber = number % valueArray[counter]
+      array.push(`${symbolArray[counter].repeat(amount)}`)
+      roman(newNumber, counter + 1);
+    } else {
+      roman(number, counter + 1)
+    }
   } 
-  index++;
-  recursion(numbers, Index)
+  return array.join('')
 }
+// 4 = IV 7 = VII 1243 = MCCXLIII
+console.log(roman(4001, 0))
 
-
-// function numerals(input) {
-  
-//   const numerals = ["I", "X", "C", "M"];
-//   const numerals5 = ["V", "L", "D", "Z"];
-//   let numbers = input.split("").reverse();
-//   let output = "";
-
-//   for (let i = 0; i < numbers.length; i++) {
-//     output = "";
-//     let num = parseInt(numbers[i]);
-//     if (num < 4) {
-//       for (let e = 1; e <= num; e++) {
-//         output = output + numerals[i];
-//       }
-//     } else if (num === 4) {
-//       output = numerals[i] + numerals5[i];
-//     } else if (num < 9) {
-//       output = output + numerals5[i];
-//       num = num - 5; 
-//       for (let e = 1; e <= num; e++) {
-//         output = output + numerals[i];
-//       }
-//     } else {
-//       output = numerals[i] + numerals[i + 1];
-//     }  
-//     numbers[i] = output; 
-//   }
-//   numbers = numbers.reverse();
-//   let result = numbers.join("");
-
-//   return result;
-// }
